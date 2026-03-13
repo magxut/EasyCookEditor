@@ -247,6 +247,17 @@ void SEasyCookTab::Construct(const FArguments& InArgs)
 									SNew(STextBlock).Text(LOCTEXT("StdOut", "Stdout"))
 								]
 							]
+							+ SWrapBox::Slot().Padding(4, 2)
+							[
+								SNew(SCheckBox)
+								.OnCheckStateChanged_Lambda([this](ECheckBoxState S){ bCookSinglePackageNoRefs = (S==ECheckBoxState::Checked); RefreshCommandPreview(); })
+								.IsChecked(ECheckBoxState::Checked)
+								.ToolTipText(LOCTEXT("CookSinglePackageNoRefsTip", "Cook single package without references"))
+								.Content()
+								[
+									SNew(STextBlock).Text(LOCTEXT("CookSinglePackageNoRefs", "No Refs"))
+								]
+							]
 						]
 						+ SVerticalBox::Slot().AutoHeight().Padding(0, 8, 0, 2)
 						[
@@ -835,6 +846,7 @@ FString SEasyCookTab::BuildArgsOnlyString() const
 	if (bNoP4) Tokens.Add(TEXT("-nop4"));
 	if (bUnattended) Tokens.Add(TEXT("-unattended"));
 	if (bStdOut) Tokens.Add(TEXT("-stdout"));
+	if (bCookSinglePackageNoRefs) Tokens.Add(TEXT("-cooksinglepackagenorefs"));
 
 	if (ExtraFlagsTextBox.IsValid())
 	{

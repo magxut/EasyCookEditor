@@ -74,6 +74,7 @@ private:
 	bool bNoP4 = true;
 	bool bUnattended = true;
 	bool bStdOut = true;
+	bool bCookSinglePackageNoRefs = true;
 	
 	FProcHandle ProcHandle;
 	void* ReadPipe = nullptr;
